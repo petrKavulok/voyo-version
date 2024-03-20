@@ -1,0 +1,16 @@
+{
+    "name": "@workspace/prettier-config",
+    "private": true,
+    "version": "0.1.0",
+    "main": "index.cjs",
+    "type": "commonjs",
+    "scripts": {
+        "clean": "rm -rf .turbo node_modules",
+        "format": "prettier \"**/*.{mjs,md,json}\" --write"
+    },
+    "dependencies": {
+        "@ackee/prettier-config": "^1.1.2",
+        "@ianvs/prettier-plugin-sort-imports": "^4.1.0"
+    },
+    "prettier": "./index.cjs"
+}

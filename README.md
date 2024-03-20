@@ -21,11 +21,10 @@ We are using our skeleton written in Typescript and based on create-next-app =>Â
     ```
 
 1. [Download `env.local` from Passwd](https://ackee.passwd.team/secrets/23LeUdfz8TU7h2LklOcR) and rename it to `.env.local`.
+2. > Be aware that env. variables are validated with predefined zod schema in `src/env/index.mjs`.
+   > If you need to add/remove a new env. var., don't forget the update the schema too.
 
-    > Be aware that env. variables are validated with predefined zod schema in `src/env/index.mjs`.
-    > If you need to add/remove a new env. var., don't forget the update the schema too.
-
-2. Launch development server:
+3. Launch development server:
 
     ```sh
     yarn dev
