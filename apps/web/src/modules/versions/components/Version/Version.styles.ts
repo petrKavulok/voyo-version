@@ -1,16 +1,17 @@
-import { Box as MUIBox, styled } from '@mui/material';
+import { Box as MUIBox, Stack as MUIStack, styled, Typography } from '@mui/material';
 
 import { Card as MUICard } from '@workspace/ui';
 
 export const Card = styled(MUICard)(({ theme }) => ({
     minWidth: '240px',
     textAlign: 'center',
-    borderColor: 'linear-gradient(to right, #30e3ea, #6722ff)',
-    // background: theme.color.backgrounds.card,
+    backgroundColor: theme.color.backgrounds.card,
     position: 'relative',
     borderRadius: '19px',
-    // TODO: delete -> this is experimental
-    background: 'linear-gradient(45deg, black, transparent)',
+    // transition: 'background-color 0.5s',
+    // '&:hover': {
+    //     background: 'linear-gradient(45deg, black, #0000006b)',
+    // },
 }));
 
 export const BgCard = styled(MUICard)(({ theme }) => ({
@@ -18,20 +19,17 @@ export const BgCard = styled(MUICard)(({ theme }) => ({
     position: 'relative',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
-    transition: 'background 2s ease',
+
     '&::before': {
         transition: 'background 2s ease',
         content: '""',
         position: 'absolute',
-        top: '-15px' /* Position gradient above the card */,
-        left: '-15px' /* Position gradient to the left of the card */,
-        right: '-15px' /* Position gradient to the right of the card */,
-        bottom: '-15px' /* Position gradient below the card */,
-        borderRadius: '30px' /* Ensure same border radius as the card */,
+        top: '-15px',
+        left: '-15px',
+        right: '-15px',
+        bottom: '-15px',
+        borderRadius: '30px',
         background: 'linear-gradient(to right, #30e3ea, #6722ff)',
-    },
-    '&:hover::before': {
-        background: 'linear-gradient(125deg, #30e3ea, #6722ff)',
     },
 }));
 
@@ -49,23 +47,17 @@ export const TitleBox = styled(MUIBox)(({ theme }) => ({
     padding: theme.spacing(2),
 }));
 
-// export const ExperimentalBox = styled('div')(({ theme }) => ({
-//     backgroundColor: 'black',
-//     borderRadius: '15px',
-//     position: 'relative',
-//     overflow: 'hidden',
-//     transition: 'border 2s ease',
-//     boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+export const Stack = styled(MUIStack)(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(0.5),
+    marginLeft: theme.spacing(1),
+    alignItems: 'center',
+}));
 
-//     /* Initial gradient border */
-//     border: '3px solid transparent',
-//     backgroundClip: 'padding-box',
-//     borderImageSlice: '1',
-//     borderWidth: '15px',
-//     borderImageSource: 'linear-gradient(to right, #ff9966, #ff5e62)',
-
-//     /* Transition to a different gradient on hover */
-//     '&:hover ': {
-//         borderImageSource: 'linear-gradient(to right, #00b4db, #0083b0)',
-//     },
-// }));
+export const InfoTitle = styled(Typography)(({ theme }) => ({
+    textTransform: 'uppercase',
+    fontWeight: 100,
+    fontSize: '1.25rem',
+    color: theme.color.typography.lightPurple,
+}));
