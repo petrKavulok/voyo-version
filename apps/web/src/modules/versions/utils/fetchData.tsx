@@ -4,21 +4,6 @@ import jwt from 'jsonwebtoken';
 
 import generateJWTToken from './generateJWT';
 
-export const fetchData = async (id: number) => {
-    try {
-        const response = await axios.get(`https://itunes.apple.com/lookup?id=${id}`);
-        console.log('response: ', response);
-        if (response.data.status !== 200) {
-            throw new Error('Network response was not ok');
-        }
-        console.log('mame: ', response.data);
-        return response.data;
-    } catch {
-        console.warn('its fishy');
-        return {};
-    }
-};
-
 // data with appstoreconnect (w/ build number)
 // export const fetchAppStoreData = async (id: number) => {
 //     try {
