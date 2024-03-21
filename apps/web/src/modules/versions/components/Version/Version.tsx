@@ -1,112 +1,92 @@
-import { Box, CardHeader, Container, Stack, Typography } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
 
-import { Button, Card, theme } from '@workspace/ui';
-
+import type { VersionProps } from '~modules/versions/constants';
 import useITunesLookup from '~modules/versions/hooks/useItunesLookup';
-import { fetchData } from '~modules/versions/utils/fetchData';
 
-import type { Platform } from '../Versions';
 import * as Styled from './Version.styles';
 
-export interface VersionProps {
-    title: string;
-    iOs: Platform;
-    android: Platform;
-    id: number;
-}
-
-export const Version = ({ title, iOs, android, id }: VersionProps) => {
-    // const { data, status } = useQuery(['itunesData', id], () => fetchData(id));
+export const Version = ({ title, id }: VersionProps) => {
     const { data, isLoading, isError } = useITunesLookup(id);
+    const [androidVersion, setAndroidVersion] = useState('');
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    useEffect(() => {
+        switch (title) {
+            case 'CZ':
+                process.env.NEXT_PUBLIC_ANDROID_VERSION_CZ &&
+                    setAndroidVersion(process.env.NEXT_PUBLIC_ANDROID_VERSION_CZ);
+                break;
+            case 'SK':
+                process.env.NEXT_PUBLIC_ANDROID_VERSION_SK &&
+                    setAndroidVersion(process.env.NEXT_PUBLIC_ANDROID_VERSION_SK);
+                break;
+            case 'RO':
+                process.env.NEXT_PUBLIC_ANDROID_VERSION_RO &&
+                    setAndroidVersion(process.env.NEXT_PUBLIC_ANDROID_VERSION_RO);
+                break;
 
-    if (isError) {
-        return <div>Error fetching data</div>;
-    }
+            default:
+                setAndroidVersion('');
+                break;
+        }
+    }, [title, process.env, setAndroidVersion]);
 
     return (
-        // <Styled.ExperimentalBox>
         <Styled.BgCard>
             <Styled.Card>
-                <div>
-                    <Styled.TitleBox>{title}</Styled.TitleBox>
+                <Styled.TitleBox>{title}</Styled.TitleBox>
 
-                    <Typography variant='h3' component='p' fontWeight={700} fontSize={'1.75rem'} mb={0.5}>
-                        iOs
-                    </Typography>
-                    <Styled.Box>
-                        <Stack display={'flex'} flexDirection={'row'} gap={0.5} ml={1} alignItems={'center'}>
-                            <Typography
-                                textTransform={'uppercase'}
-                                fontWeight={100}
-                                fontSize={'1.25rem'}
-                                color={theme.color.typography.lightPurple}
-                            >
-                                Version
-                            </Typography>
+                <Typography variant='h3' component='p' fontWeight={700} fontSize={'1.75rem'} mb={0.75}>
+                    iOs
+                </Typography>
+                <Styled.Box>
+                    <Styled.Stack>
+                        <Styled.InfoTitle>Version</Styled.InfoTitle>
+                        {isLoading ? (
+                            'loading...'
+                        ) : isError ? (
+                            'error :/'
+                        ) : (
                             <Typography variant='body1' fontSize={'1.25rem'}>
                                 {data?.results?.[0].version}
                             </Typography>
-                        </Stack>
-                        {/* TODO: uncomment when advised by PM (Soňa)
-                        <Stack display={'flex'} flexDirection={'row'} gap={0.5} ml={1} alignItems={'center'}>
-                            <Typography
-                                textTransform={'uppercase'}
-                                fontWeight={100}
-                                fontSize={'1.25rem'}
-                                color={theme.color.typography.lightPurple}
-                            >
+                        )}
+                    </Styled.Stack>
+                    {/* TODO: uncomment when advised by PM (Soňa)
+                        <Styled.Stack}>
+                            <Styled.InfoTitle >
                                 Build No.
-                            </Typography>
+                            </Styled.InfoTitle>
 
                             <Typography variant='body1' fontSize={'1.25rem'}>
                                 {iOs.buildNo}
                             </Typography>
-                        </Stack> */}
-                    </Styled.Box>
+                        </Styled.Stack> */}
+                </Styled.Box>
 
-                    <Typography variant='h3' component='h3' fontWeight={700} fontSize={'1.75rem'} mb={0.5}>
-                        android
-                    </Typography>
-                    <Styled.Box>
-                        <Stack display={'flex'} flexDirection={'row'} gap={0.5} ml={1} alignItems={'center'}>
-                            <Typography
-                                textTransform={'uppercase'}
-                                fontWeight={100}
-                                fontSize={'1.25rem'}
-                                color={theme.color.typography.lightPurple}
-                            >
-                                Version
-                            </Typography>
+                <Typography variant='h3' component='p' fontWeight={700} fontSize={'1.75rem'} mb={0.75}>
+                    Android
+                </Typography>
+                <Styled.Box>
+                    <Styled.Stack>
+                        <Styled.InfoTitle>Version</Styled.InfoTitle>
 
-                            <Typography variant='body1' fontSize={'1.25rem'}>
-                                {android.version}
-                            </Typography>
-                        </Stack>
-                        {/* TODO: uncomment when advised by PM (Soňa)
+                        <Typography variant='body1' fontSize={'1.25rem'}>
+                            {androidVersion}
+                        </Typography>
+                    </Styled.Stack>
+                    {/* TODO: uncomment when advised by PM (Soňa)
                         <Stack display={'flex'} flexDirection={'row'} gap={0.5} ml={1} alignItems={'center'}>
-                            <Typography
-                                textTransform={'uppercase'}
-                                fontWeight={100}
-                                fontSize={'1.25rem'}
-                                color={theme.color.typography.lightPurple}
-                            >
+                            <Styled.InfoTitle>
                                 Build No.
-                            </Typography>
+                            </Styled.InfoTitle>
 
                             <Typography variant='body1' fontSize={'1.25rem'}>
-                                {android.buildNo}
+                                {androidVersion.buildNo}
                             </Typography>
                         </Stack> */}
-                    </Styled.Box>
-                </div>
+                </Styled.Box>
             </Styled.Card>
-            {/* <Styled.BgCard /> */}
         </Styled.BgCard>
-        // </Styled.ExperimentalBox>
     );
 };
