@@ -1,9 +1,12 @@
+import { Typography } from '@mui/material';
+
+import { AppLayout } from '~modules/layout/components/AppLayout';
+
 function Page404() {
     return (
-        <main>
-            <h1>404</h1>
-            <p>Page not found</p>
-        </main>
+        <AppLayout>
+            <Typography variant='h3'> Not Found :( </Typography>
+        </AppLayout>
     );
 }
 
