@@ -8,10 +8,6 @@ export const Card = styled(MUICard)(({ theme }) => ({
     backgroundColor: theme.color.backgrounds.card,
     position: 'relative',
     borderRadius: '19px',
-    // transition: 'background-color 0.5s',
-    // '&:hover': {
-    //     background: 'linear-gradient(45deg, black, #0000006b)',
-    // },
 }));
 
 export const BgCard = styled(MUICard)(({ theme }) => ({
@@ -19,6 +15,11 @@ export const BgCard = styled(MUICard)(({ theme }) => ({
     position: 'relative',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
+
+    transition: 'transform 0.2s ease-out',
+    '&:hover': {
+        transform: 'scale(1.025)',
+    },
 
     '&::before': {
         transition: 'background 2s ease',
