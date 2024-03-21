@@ -1,9 +1,14 @@
 import type { NextPage } from 'next';
 
-import { LoginForm } from '~modules/form/components';
+import { AppLayout } from '~modules/layout/components/AppLayout';
+import { VersionsContainer } from '~modules/versions/components';
 
 const Home: NextPage = () => {
-    return <LoginForm />;
+    return (
+        <AppLayout>
+            <VersionsContainer />
+        </AppLayout>
+    );
 };
 
 export default Home;

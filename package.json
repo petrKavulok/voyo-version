@@ -13,10 +13,11 @@
         "tooling/*"
     ],
     "dependencies": {
-        "turbo": "^1.10.14",
+        "@manypkg/cli": "^0.21.0",
         "@workspace/prettier-config": "*",
         "@workspace/tsconfig": "*",
-        "@manypkg/cli": "^0.21.0"
+        "husky": "^9.0.11",
+        "turbo": "^1.10.14"
     },
     "prettier": "@workspace/prettier-config",
     "resolutions": {
