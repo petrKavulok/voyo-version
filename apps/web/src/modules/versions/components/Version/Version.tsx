@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 
 import type { VersionProps } from '~modules/versions/constants';
-import useITunesLookup from '~modules/versions/hooks/useItunesLookup';
 
 import * as Styled from './Version.styles';
 
-export const Version = ({ title, id }: VersionProps) => {
-    const { data, isLoading, isError } = useITunesLookup(id);
+export const Version = ({ title, ios }: VersionProps & { ios: any }) => {
     const [androidVersion, setAndroidVersion] = useState('');
 
     useEffect(() => {
@@ -42,15 +40,11 @@ export const Version = ({ title, id }: VersionProps) => {
                 <Styled.Box>
                     <Styled.Stack>
                         <Styled.InfoTitle>Version</Styled.InfoTitle>
-                        {isLoading ? (
-                            'loading...'
-                        ) : isError ? (
-                            'error :/'
-                        ) : (
-                            <Typography variant='body1' fontSize='1.25rem'>
-                                {data?.results?.[0].version}
-                            </Typography>
-                        )}
+                        <Typography variant='body1' fontSize='1.25rem'>
+                            {ios.results?.[0].version}
+                        </Typography>
+                        {!ios.results?.[0].version && <Typography color='lightpink'>error</Typography>}
+                        {/* )} */}
                     </Styled.Stack>
                     {/* TODO: uncomment when advised by PM (Soňa)
                         <Styled.Stack}>
