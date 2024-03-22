@@ -24,8 +24,7 @@
         "ci-cir-dep": "yarn cir-dep",
         "audit:high": "yarn audit --level high --groups dependencies",
         "version": "yarn changelog && code CHANGELOG.md --wait && git add CHANGELOG.md .env",
-        "changelog": "git fetch origin && npx gitmoji-changelog",
-        "prepare": "husky install"
+        "changelog": "git fetch origin && npx gitmoji-changelog"
     },
     "dependencies": {
         "@emotion/react": "^11.11.4",
