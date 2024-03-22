@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { versions } from '~modules/versions/constants';
 
 import { Version } from '../Version';
