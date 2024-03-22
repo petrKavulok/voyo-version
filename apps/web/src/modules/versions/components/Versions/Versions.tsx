@@ -1,7 +1,3 @@
-import { Container } from '@mui/material';
-
-import { Button, Card } from '@workspace/ui';
-
 import { versions } from '~modules/versions/constants';
 
 import { Version } from '../Version';
