@@ -1,6 +1,6 @@
 export type VersionProps = {
     title: 'CZ' | 'SK' | 'RO';
-    id: number;
+    id?: number;
 };
 
 export const versions = [

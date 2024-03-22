@@ -18,10 +18,11 @@
 //         if (!response.data.status) {
 //             throw new Error('Network response was not ok');
 //         }
-//         console.log(response.data);
+//
 //         return response.data;
 //     } catch {
 //         console.warn('its fishy');
+//
 //         return {};
 //     }
 // };
