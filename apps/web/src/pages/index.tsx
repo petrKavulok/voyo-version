@@ -20,7 +20,7 @@ export default Home;
 const fetchVersion = async (id: string) => {
     try {
       const response = await fetch(`/api/getLatestVersion?appId=${id}`);
-      const data = await response.json();
+      const data: any = await response.json();
       if (response.ok) {
         return data?.version
     } else {
