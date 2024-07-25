@@ -1,6 +1,4 @@
-import { Box as MUIBox, Stack as MUIStack, styled, Typography } from '@mui/material';
-
-import { Card as MUICard } from '@workspace/ui';
+import { Box as MUIBox, Stack as MUIStack, styled, Typography, Card as MUICard } from '@mui/material';
 
 export const Card = styled(MUICard)(({ theme }) => ({
     minWidth: '240px',
