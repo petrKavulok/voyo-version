@@ -5,29 +5,7 @@ import type { VersionProps } from '~modules/versions/constants';
 
 import * as Styled from './Version.styles';
 
-export const Version = ({ title, ios }: VersionProps & { ios: any }) => {
-    const [androidVersion, setAndroidVersion] = useState('');
-
-    useEffect(() => {
-        switch (title) {
-            case 'CZ':
-                process.env.NEXT_PUBLIC_ANDROID_VERSION_CZ &&
-                    setAndroidVersion(process.env.NEXT_PUBLIC_ANDROID_VERSION_CZ);
-                break;
-            case 'SK':
-                process.env.NEXT_PUBLIC_ANDROID_VERSION_SK &&
-                    setAndroidVersion(process.env.NEXT_PUBLIC_ANDROID_VERSION_SK);
-                break;
-            case 'RO':
-                process.env.NEXT_PUBLIC_ANDROID_VERSION_RO &&
-                    setAndroidVersion(process.env.NEXT_PUBLIC_ANDROID_VERSION_RO);
-                break;
-
-            default:
-                setAndroidVersion('');
-                break;
-        }
-    }, [title, setAndroidVersion]);
+export const Version = ({ title, ios, android }: VersionProps & { ios: any, android: string }) => {
 
     return (
         <Styled.BgCard>
@@ -66,7 +44,7 @@ export const Version = ({ title, ios }: VersionProps & { ios: any }) => {
                         <Styled.InfoTitle>Version</Styled.InfoTitle>
 
                         <Typography variant='body1' fontSize='1.25rem'>
-                            {androidVersion}
+                            {android}
                         </Typography>
                     </Styled.Stack>
                     {/* TODO: uncomment when advised by PM (Soňa)
