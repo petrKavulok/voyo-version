@@ -3,6 +3,7 @@ import { Box as MUIBox, Stack as MUIStack, styled, Typography, Card as MUICard }
 export const Card = styled(MUICard)(({ theme }) => ({
     minWidth: '240px',
     textAlign: 'center',
+    // @ts-expect-error
     backgroundColor: theme.color.backgrounds.card,
     position: 'relative',
     borderRadius: '19px',
@@ -13,12 +14,12 @@ export const BgCard = styled(MUICard)(({ theme }) => ({
     position: 'relative',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
-
+    
     transition: 'transform 0.2s ease-out',
     '&:hover': {
         transform: 'scale(1.025)',
     },
-
+    
     '&::before': {
         transition: 'background 2s ease',
         content: '""',
@@ -58,5 +59,6 @@ export const InfoTitle = styled(Typography)(({ theme }) => ({
     textTransform: 'uppercase',
     fontWeight: 100,
     fontSize: '1.25rem',
+    // @ts-expect-error
     color: theme.color.typography.lightPurple,
 }));
