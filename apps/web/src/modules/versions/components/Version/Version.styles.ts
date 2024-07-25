@@ -3,7 +3,6 @@ import { Box as MUIBox, Stack as MUIStack, styled, Typography, Card as MUICard }
 export const Card = styled(MUICard)(({ theme }) => ({
     minWidth: '240px',
     textAlign: 'center',
-    // @ts-expect-error
     backgroundColor: theme.color.backgrounds.card,
     position: 'relative',
     borderRadius: '19px',
@@ -59,6 +58,5 @@ export const InfoTitle = styled(Typography)(({ theme }) => ({
     textTransform: 'uppercase',
     fontWeight: 100,
     fontSize: '1.25rem',
-    // @ts-expect-error
     color: theme.color.typography.lightPurple,
 }));

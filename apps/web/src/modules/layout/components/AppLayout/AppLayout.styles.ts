@@ -2,12 +2,12 @@ import { styled } from '@mui/material';
 
 export const Layout = styled('div')(({ theme }) => ({
     position: 'relative',
-    // @ts-expect-error
+
     backgroundColor: theme.color.backgrounds.primary,
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
-    // @ts-expect-error
+
     color: theme.color.typography.white,
     fontFamily: theme.typography.fontFamily,
     paddingBottom: theme.spacing(3),
@@ -15,7 +15,7 @@ export const Layout = styled('div')(({ theme }) => ({
 
 export const Container = styled('div')(({ theme }) => ({
     padding: `${theme.spacing(3, 0.5, 1.75)} !important`,
-    // @ts-expect-error
+
     backgroundColor: theme.color.backgrounds.primary,
     // backgroundColor: theme.color.backgrounds.voyoPurple,
     flex: '1 0 auto',
