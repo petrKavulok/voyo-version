@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
-import puppeteer from 'puppeteer';
+// import { getLatestGoogleAppVersion } from '~modules/api/getLatestGoogleAppVersion';
+
 
 import { AppLayout } from '~modules/layout/components/AppLayout';
 import { VersionsContainer } from '~modules/versions/components';
@@ -15,53 +16,31 @@ const Home: NextPage = props => {
 
 export default Home;
 
-async function getLatestGoogleAppVersion(appId: string): Promise<string> {
-    const url = `https://play.google.com/store/apps/details?id=net.cme.voyo.${appId}&hl=sk&pli=1`;
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-  
+
+const fetchVersion = async (id: string) => {
     try {
-      await page.goto(url, {
-        waitUntil: 'networkidle2',
-      });
-
-      // click button which opens modal with application's version    
-      await page.click('button[class="VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ QDwDD mN1ivc VxpoF"]');
-
-    //   Debugging: Take a screenshot to verify the page loaded correctly
-    //   await page.screenshot({ path: 'page.png' });
-
-      // Wait for the modal to load and display the version information
-      await page.waitForSelector('div.reAt0', { visible: true });
-
-      const version = await page.evaluate(() => {
-        const versionElement = document.querySelector('div.reAt0');
-        return versionElement ? versionElement.textContent : 'Version not found';
-      });
-  
-      await browser.close();
-  
-      if (!version) {
-        throw new Error('Version element not found');
+      const response = await fetch(`/api/getLatestVersion?appId=${id}`);
+      const data = await response.json();
+      if (response.ok) {
+        return data?.version
+    } else {
+        return data?.error
       }
-  
-      return version;
     } catch (error) {
-      await browser.close();
-      console.error('Error fetching the latest version:', error);
-      throw error;
+      throw new Error('Failed to fetch the latest version');
     }
-  
-  }
+  };
+
+
 
 export async function getServerSideProps() {
     const requests = [
         fetch(`https://itunes.apple.com/lookup?id=${versions[0].id}`).then(response => response.json()),
         fetch(`https://itunes.apple.com/lookup?id=${versions[1].id}`).then(response => response.json()),
         fetch(`https://itunes.apple.com/lookup?id=${versions[2].id}`).then(response => response.json()),
-        getLatestGoogleAppVersion('cz'),
-        getLatestGoogleAppVersion('sk'),
-        getLatestGoogleAppVersion('ro'),
+        fetchVersion('net.cme.voyo.cz'),
+        fetchVersion('net.cme.voyo.sk'),
+        fetchVersion('net.cme.voyo.ro'),
     ];
 
     const [data1, data2, data3, data4, data5, data6] = await Promise.all(requests);
