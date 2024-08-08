@@ -1,7 +1,7 @@
 import { Box as MUIBox, styled } from '@mui/material';
 
 export const LogoBox = styled(MUIBox)(({ theme }) => ({
-    // height: '60px',
+    height: '35px',
     margin: theme.spacing(0.875),
 }));
 

@@ -14,13 +14,13 @@ export const Version = ({ title, ios, android }: VersionProps & { ios: any, andr
             <Styled.Card>
                 <Styled.TitleBox>{title}</Styled.TitleBox>
 
-                <Typography variant='h3' component='p' fontWeight={700} fontSize='1.75rem' mb={0.75}>
+                <Typography variant='h3' component='p' fontWeight={700} fontSize='1.75rem' mb={0.75} color={'white'}>
                     iOs
                 </Typography>
                 <Styled.Box>
                     <Styled.Stack>
                         <Styled.InfoTitle>Version</Styled.InfoTitle>
-                        <Typography variant='body1' fontSize='1.25rem'>
+                        <Typography variant='body1' fontSize='1.25rem' color={'white'}>
                             {ios?.results?.[0].version}
                         </Typography>
                         {!ios?.results?.[0].version && <Typography color='lightpink'>error</Typography>}
@@ -38,14 +38,14 @@ export const Version = ({ title, ios, android }: VersionProps & { ios: any, andr
                         </Styled.Stack> */}
                 </Styled.Box>
 
-                <Typography variant='h3' component='p' fontWeight={700} fontSize='1.75rem' mb={0.75}>
+                <Typography variant='h3' component='p' fontWeight={700} fontSize='1.75rem' mb={0.75} color={'white'}>
                     Android
                 </Typography>
                 <Styled.Box>
                     <Styled.Stack>
                         <Styled.InfoTitle>Version</Styled.InfoTitle>
 
-                        <Typography variant='body1' fontSize='1.25rem'>
+                        <Typography variant='body1' fontSize='1.25rem' color={'white'}>
                             {android}
                         </Typography>
                     </Styled.Stack>

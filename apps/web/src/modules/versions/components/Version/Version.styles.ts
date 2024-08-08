@@ -13,7 +13,8 @@ export const BgCard = styled(MUICard)(({ theme }) => ({
     position: 'relative',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
-    
+    borderRadius: '30px',
+    color: theme.color.typography.white,
     transition: 'transform 0.2s ease-out',
     '&:hover': {
         transform: 'scale(1.025)',
@@ -44,6 +45,7 @@ export const TitleBox = styled(MUIBox)(({ theme }) => ({
     fontWeight: theme.typography.fontWeightBold,
     margin: theme.spacing(1),
     padding: theme.spacing(2),
+    color: theme.color.typography.white,
 }));
 
 export const Stack = styled(MUIStack)(({ theme }) => ({

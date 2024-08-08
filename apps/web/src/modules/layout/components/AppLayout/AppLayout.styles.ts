@@ -15,7 +15,8 @@ export const Layout = styled('div')(({ theme }) => ({
 
 export const Container = styled('div')(({ theme }) => ({
     padding: `${theme.spacing(3, 0.5, 1.75)} !important`,
-
+    
+    color: theme.color.typography.white,
     backgroundColor: theme.color.backgrounds.primary,
     // backgroundColor: theme.color.backgrounds.voyoPurple,
     flex: '1 0 auto',
