@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
-// import puppeteer from 'puppeteer';
-import chromium from 'chrome-aws-lambda';
-import puppeteer from 'puppeteer-core';
+
+import {load} from 'cheerio';
 
 import { AppLayout } from '~modules/layout/components/AppLayout';
 import { VersionsContainer } from '~modules/versions/components';
 import { versions } from '~modules/versions/constants';
+
 
 const Home: NextPage = props => {
     return (
@@ -17,50 +17,64 @@ const Home: NextPage = props => {
 
 export default Home;
 
-async function getLatestGoogleAppVersion(appId: string): Promise<string> {
-    const url = `https://play.google.com/store/apps/details?id=net.cme.voyo.${appId}&hl=sk&pli=1`;
-    // const browser = await puppeteer.launch();
-
-    const browser = await puppeteer.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-    });
-
-    const page = await browser.newPage();
-  
+async function getLatestGoogleAppVersion(appId: string): Promise<string | null> {
     try {
-      await page.goto(url, {
-        waitUntil: 'networkidle2',
-      });
+        const url = `https://play.google.com/store/apps/details?id=net.cme.voyo.${appId}&hl=sk&pli=1`;
 
-      // click button which opens modal with application's version    
-      await page.click('button[class="VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ QDwDD mN1ivc VxpoF"]');
+        const response = await fetch(url);
+        if (!response.ok) {
+            // throw new Error(`HTTP error! status: ${response.status}`);
+            return null
+        }
+        const html = await response.text();
 
-    //   Debugging: Take a screenshot to verify the page loaded correctly
-    //   await page.screenshot({ path: 'page.png' });
+        
+        
+        // Load the HTML into cheerio
+        const $ = load(html);
 
-      // Wait for the modal to load and display the version information
-      await page.waitForSelector('div.reAt0', { visible: true });
 
-      const version = await page.evaluate(() => {
-        const versionElement = document.querySelector('div.reAt0');
-        return versionElement ? versionElement.textContent : 'Version not found';
-      });
-  
-      await browser.close();
-  
-      if (!version) {
-        throw new Error('Version element not found');
-      }
-  
-      return version;
-    } catch (error) {
-      await browser.close();
-      console.error('Error fetching the latest version:', error);
-      throw error;
+        // Select all script tags
+        const scripts = $('script').toArray();
+
+        console.log('f fasdf asdf asdfads fadsf sdf d fas dfa ', scripts.length)
+
+        // Find the script containing the specific text
+        const script = scripts.find(s => $(s).html()?.includes('/store/apps/developer'));
+
+        if (!script) {
+            // throw new Error('Script containing the specified text not found');
+            return null
+        }
+
+        // Get the script content
+        const scriptContent = $(script).html();
+
+        if (!scriptContent) {
+            // throw new Error('No content found in the selected script');
+            return null
+        }
+
+        // Use regex to find the version string
+        const versionStringRegex = /"[0-9]+\.[0-9]+\.[0-9.]+"/g;
+        const matches = scriptContent.match(versionStringRegex);
+
+        if (!matches || matches.length === 0) {
+            throw new Error('Version string not found in the script content');
+        }
+
+        // Extract the first match and remove quotes
+        const match = matches[0];
+        const version = match.replace(/"/g, '');
+
+        return version;
+        } catch (error) {
+            console.error('Error fetching HTML:', error);
+            return null
+        }
     }
-  }
+        
+
 
 export async function getServerSideProps() {
     try {
@@ -69,9 +83,25 @@ export async function getServerSideProps() {
             fetch(`https://itunes.apple.com/lookup?id=${versions[0].id}`).then(response => response.json()),
             fetch(`https://itunes.apple.com/lookup?id=${versions[1].id}`).then(response => response.json()),
             fetch(`https://itunes.apple.com/lookup?id=${versions[2].id}`).then(response => response.json()),
-            getLatestGoogleAppVersion('cz'),
-            getLatestGoogleAppVersion('sk'),
-            getLatestGoogleAppVersion('ro'),
+            getLatestGoogleAppVersion('cz').then(version => {
+                if (version) {
+                   return version;
+                } else {
+                    return 'fail'
+                }}),
+            getLatestGoogleAppVersion('sk').then(version => {
+                if (version) {
+                   return version;
+                } else {
+                    return 'fail'
+                }}),
+            getLatestGoogleAppVersion('ro').then(version => {
+                if (version) {
+                   return version;
+                } else {
+                    return 'fail'
+                }}),
+
         ];
         
         const [data1, data2, data3, 

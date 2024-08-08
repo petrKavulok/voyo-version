@@ -7,6 +7,8 @@ import * as Styled from './Version.styles';
 
 export const Version = ({ title, ios, android }: VersionProps & { ios: any, android: string }) => {
 
+    console.log({ios, android})
+
     return (
         <Styled.BgCard>
             <Styled.Card>
@@ -19,9 +21,9 @@ export const Version = ({ title, ios, android }: VersionProps & { ios: any, andr
                     <Styled.Stack>
                         <Styled.InfoTitle>Version</Styled.InfoTitle>
                         <Typography variant='body1' fontSize='1.25rem'>
-                            {ios.results?.[0].version}
+                            {ios?.results?.[0].version}
                         </Typography>
-                        {!ios.results?.[0].version && <Typography color='lightpink'>error</Typography>}
+                        {!ios?.results?.[0].version && <Typography color='lightpink'>error</Typography>}
                         {/* )} */}
                     </Styled.Stack>
                     {/* TODO: uncomment when advised by PM (Soňa)
