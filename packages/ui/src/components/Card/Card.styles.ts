@@ -3,7 +3,6 @@ import { Card as MUICard, styled } from '@mui/material';
 export const Card = styled(MUICard)(({ theme }) => ({
     padding: `${theme.spacing(1.5, 0.75, 1.25)}`,
     borderRadius: '30px',
-    // border: `12px solid ${theme.color.backgrounds.voyoPurple}`,
     boxShadow: `${theme.shadows[0]} !important`,
     color: theme.color.typography.white,
 

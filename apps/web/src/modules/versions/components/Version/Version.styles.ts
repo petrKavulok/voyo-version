@@ -1,6 +1,4 @@
-import { Box as MUIBox, Stack as MUIStack, styled, Typography } from '@mui/material';
-
-import { Card as MUICard } from '@workspace/ui';
+import { Box as MUIBox, Stack as MUIStack, styled, Typography, Card as MUICard } from '@mui/material';
 
 export const Card = styled(MUICard)(({ theme }) => ({
     minWidth: '240px',
@@ -15,12 +13,13 @@ export const BgCard = styled(MUICard)(({ theme }) => ({
     position: 'relative',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
-
+    borderRadius: '30px',
+    color: theme.color.typography.white,
     transition: 'transform 0.2s ease-out',
     '&:hover': {
         transform: 'scale(1.025)',
     },
-
+    
     '&::before': {
         transition: 'background 2s ease',
         content: '""',
@@ -46,6 +45,7 @@ export const TitleBox = styled(MUIBox)(({ theme }) => ({
     fontWeight: theme.typography.fontWeightBold,
     margin: theme.spacing(1),
     padding: theme.spacing(2),
+    color: theme.color.typography.white,
 }));
 
 export const Stack = styled(MUIStack)(({ theme }) => ({
